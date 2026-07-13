@@ -70,4 +70,37 @@ export const adminApi = {
       throw new Error('ไม่สามารถสร้างไฟล์ Excel ได้');
     }
   },
+
+  getWhitelist: async (token: string): Promise<any[]> => {
+    try {
+      const response = await api.get('/api/admin/whitelist', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return response.data;
+    } catch (err: any) {
+      throw new Error(err.response?.data?.error || 'ไม่สามารถดึงรายชื่อ Whitelist ได้');
+    }
+  },
+
+  addToWhitelist: async (token: string, lineUserId: string, displayName?: string): Promise<any> => {
+    try {
+      const response = await api.post('/api/admin/whitelist', { lineUserId, displayName }, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return response.data;
+    } catch (err: any) {
+      throw new Error(err.response?.data?.error || 'ไม่สามารถเพิ่มผู้ใช้งานลงใน Whitelist ได้');
+    }
+  },
+
+  removeFromWhitelist: async (token: string, lineUserId: string): Promise<any> => {
+    try {
+      const response = await api.delete(`/api/admin/whitelist/${lineUserId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return response.data;
+    } catch (err: any) {
+      throw new Error(err.response?.data?.error || 'ไม่สามารถลบผู้ใช้งานออกจาก Whitelist ได้');
+    }
+  },
 };

@@ -6,6 +6,9 @@ interface UsersTabProps {
   searchTerm: string;
   setSearchTerm: (val: string) => void;
   onViewLogs: (user: UserProfile) => void;
+  whitelist: any[];
+  onAddToWhitelist: (lineUserId: string, displayName?: string) => void;
+  onRemoveFromWhitelist: (lineUserId: string) => void;
 }
 
 export const UsersTab: React.FC<UsersTabProps> = ({
@@ -13,6 +16,9 @@ export const UsersTab: React.FC<UsersTabProps> = ({
   searchTerm,
   setSearchTerm,
   onViewLogs,
+  whitelist,
+  onAddToWhitelist,
+  onRemoveFromWhitelist,
 }) => {
   const calculateAge = (birthdayStr: string | null): number | string => {
     if (!birthdayStr) return '-';
@@ -78,13 +84,14 @@ export const UsersTab: React.FC<UsersTabProps> = ({
           <tbody className="divide-y divide-gray-50 text-xs font-semibold text-gray-700">
             {filteredUsers.length === 0 ? (
               <tr>
-                <td colSpan={8} className="py-8 text-center text-gray-400 italic">ไม่พบรายชื่อผู้ใช้งานระบบ</td>
+                <td colSpan={9} className="py-8 text-center text-gray-400 italic">ไม่พบรายชื่อผู้ใช้งานระบบ</td>
               </tr>
             ) : (
               filteredUsers.map((u, index) => {
                 const ageVal = calculateAge(u.birthday);
                 const bmiVal = calculateBMI(u.weight, u.height);
                 const isMale = u.gender === 'MALE';
+                const isWhitelisted = whitelist.some((w) => w.lineUserId === u.lineUserId);
 
                 return (
                   <tr key={u.id} className="hover:bg-pink-50/10 transition-colors">
@@ -94,8 +101,13 @@ export const UsersTab: React.FC<UsersTabProps> = ({
                       </div>
                     </td>
                     <td className="py-4 px-6">
-                      <div>
+                      <div className="flex items-center gap-2">
                         <p className=" text-gray-800 leading-tight">{u.displayName || 'ไม่มีโปรไฟล์'}</p>
+                        {isWhitelisted && (
+                          <span className="text-[9px] bg-amber-50 text-amber-600 border border-amber-100 px-1.5 py-0.5 rounded font-bold">
+                            👑 แอดมิน
+                          </span>
+                        )}
                       </div>
                     </td>
                     <td className="py-4 px-6">
@@ -128,12 +140,29 @@ export const UsersTab: React.FC<UsersTabProps> = ({
                       {u._count.foodLogs}
                     </td>
                     <td className="py-4 px-6 text-center">
-                      <button
-                        onClick={() => onViewLogs(u)}
-                        className="bg-pink-50 hover:bg-pink-100 text-pink-600 text-[10px]  px-3 py-1.5 rounded-lg transition cursor-pointer shadow-sm"
-                      >
-                        ดูประวัติ
-                      </button>
+                      <div className="flex items-center justify-center gap-2">
+                        <button
+                          onClick={() => onViewLogs(u)}
+                          className="bg-pink-50 hover:bg-pink-100 text-pink-600 text-[10px]  px-3 py-1.5 rounded-lg transition cursor-pointer shadow-sm font-semibold"
+                        >
+                          ดูประวัติ
+                        </button>
+                        {isWhitelisted ? (
+                          <button
+                            onClick={() => onRemoveFromWhitelist(u.lineUserId)}
+                            className="bg-red-50 hover:bg-red-100 text-red-600 text-[10px] px-3 py-1.5 rounded-lg transition cursor-pointer shadow-sm border border-red-100/30 font-semibold"
+                          >
+                            ถอนแอดมิน
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() => onAddToWhitelist(u.lineUserId, u.displayName || 'Admin')}
+                            className="bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-[10px] px-3 py-1.5 rounded-lg transition cursor-pointer shadow-sm border border-indigo-100/30 font-semibold"
+                          >
+                            ตั้งเป็นแอดมิน
+                          </button>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 );

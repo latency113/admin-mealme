@@ -25,6 +25,7 @@ function App() {
   const [selectedUser, setSelectedUser] = useState<UserProfile | null>(null);
   const [selectedUserLogs, setSelectedUserLogs] = useState<FoodLog[]>([]);
   const [loadingLogs, setLoadingLogs] = useState(false);
+  const [whitelist, setWhitelist] = useState<any[]>([]);
 
   const liffId = import.meta.env.VITE_LIFF_ID;
 
@@ -37,6 +38,7 @@ function App() {
         setLoading(false);
         fetchStats(token);
         fetchUsers(token);
+        fetchWhitelist(token);
         return;
       }
 
@@ -79,6 +81,7 @@ function App() {
       
       fetchStats(data.token);
       fetchUsers(data.token);
+      fetchWhitelist(data.token);
     } catch (err: any) {
       console.error(err);
       if (err.message.includes('403') || err.message.includes('สิทธิ์')) {
@@ -114,6 +117,51 @@ function App() {
   };
 
   // 2. Fetch Data from Protected API
+  const fetchWhitelist = async (authToken: string) => {
+    try {
+      const data = await adminApi.getWhitelist(authToken);
+      setWhitelist(data);
+    } catch (err: any) {
+      console.error(err);
+    }
+  };
+
+  const handleAddToWhitelist = async (lineUserId: string, displayName?: string) => {
+    if (!token) return;
+    try {
+      await adminApi.addToWhitelist(token, lineUserId, displayName);
+      fetchWhitelist(token);
+      Swal.fire('สำเร็จ', 'แต่งตั้งผู้ดูแลระบบรายใหม่เรียบร้อยแล้ว', 'success');
+    } catch (err: any) {
+      Swal.fire('ผิดพลาด', err.message || 'ไม่สามารถแต่งตั้งได้', 'error');
+    }
+  };
+
+  const handleRemoveFromWhitelist = async (lineUserId: string) => {
+    if (!token) return;
+    if (adminProfile && adminProfile.lineUserId === lineUserId) {
+      Swal.fire('ระวัง', 'คุณไม่สามารถยกเลิกสิทธิ์ผู้ดูแลระบบของตัวเองได้', 'warning');
+      return;
+    }
+    const confirm = await Swal.fire({
+      title: 'ยืนยันการถอนสิทธิ์',
+      text: 'คุณแน่ใจหรือไม่ที่จะถอนสิทธิ์ผู้ดูแลระบบของสมาชิกท่านนี้?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'ถอนสิทธิ์',
+      cancelButtonText: 'ยกเลิก',
+      confirmButtonColor: '#ef4444'
+    });
+    if (!confirm.isConfirmed) return;
+
+    try {
+      await adminApi.removeFromWhitelist(token, lineUserId);
+      fetchWhitelist(token);
+      Swal.fire('สำเร็จ', 'ถอนสิทธิ์ผู้ดูแลระบบเรียบร้อยแล้ว', 'success');
+    } catch (err: any) {
+      Swal.fire('ผิดพลาด', err.message || 'ไม่สามารถถอนสิทธิ์ได้', 'error');
+    }
+  };
   const fetchStats = async (authToken: string) => {
     try {
       const data = await adminApi.getStats(authToken);
@@ -260,6 +308,9 @@ function App() {
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
             onViewLogs={viewUserLogs}
+            whitelist={whitelist}
+            onAddToWhitelist={handleAddToWhitelist}
+            onRemoveFromWhitelist={handleRemoveFromWhitelist}
           />
         )}
       </main>
