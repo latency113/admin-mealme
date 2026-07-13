@@ -430,11 +430,16 @@ export const FoodLogsModal: React.FC<FoodLogsModalProps> = ({
                   ) : (
                     filteredLogs.map((log) => (
                       <div key={log.id} className="flex gap-4 p-4 rounded-lg bg-pink-50/20 border border-pink-100/10 items-center">
-                        {log.imageUrl && (
-                          <div className="w-20 h-20 rounded-md overflow-hidden flex-shrink-0 border border-pink-100/20 shadow-sm">
-                            <img src={log.imageUrl} alt={log.foodName} className="w-full h-full object-cover" />
-                          </div>
-                        )}
+                        {log.imageUrl ? (
+                            <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 border border-pink-100/40">
+                              <img src={log.imageUrl} alt={log.foodName} className="w-full h-full object-cover" />
+                            </div>
+                          ) :
+                            (
+                              <div className="w-16 h-16 flex text-center items-center justify-center bg-gray-100 text-gray-400 text-xs rounded-xl">
+                                ไม่มีรูปภาพ
+                              </div>
+                            )}
                         <div className="flex-1 flex flex-col justify-between py-0.5 min-w-0">
                           <div className="flex justify-between items-start gap-2">
                             <h4 className="text-base text-gray-800 leading-tight truncate">{log.foodName}</h4>
