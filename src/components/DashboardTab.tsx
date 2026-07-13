@@ -12,7 +12,7 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({ stats }) => {
       <h1 className="text-2xl font-black text-gray-800 tracking-tight">สถิติระบบโดยรวม</h1>
 
       {/* Grid Stats */}
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
         <div className="bg-white p-5 rounded-lg border border-gray-100 shadow-sm flex flex-col justify-between h-28 animate-fade-in animate-duration-500">
           <span className="text-xs text-gray-400 font-semibold uppercase tracking-wider">จำนวนผู้ใช้งานทั้งหมด</span>
           <p className="text-3xl font-extrabold text-pink-500 mt-1">{stats?.totalUsers || 0}</p>
@@ -30,7 +30,7 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({ stats }) => {
       <div className="bg-white p-5 rounded-lg border border-gray-100 shadow-sm space-y-4">
         <h2 className="text-xs text-gray-400 font-semibold uppercase tracking-wider">สัดส่วนวิธีการวิเคราะห์เมนูอาหาร</h2>
         
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {stats?.sourceStats.map((item) => {
             const isImage = item.sourceType === 'IMAGE';
             const percent = stats.totalFoodLogs > 0 

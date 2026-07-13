@@ -300,7 +300,7 @@ function App() {
 
   // 6. Render Dashboard Panel
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row">
       {/* Sidebar Navigation */}
       <Sidebar
         activeTab={activeTab}
@@ -310,7 +310,7 @@ function App() {
       />
 
       {/* Main Content Area */}
-      <main className="flex-1 p-8 overflow-y-auto max-h-screen">
+      <main className="flex-1 p-5 pt-24 md:p-8 overflow-y-auto max-h-screen min-w-0">
         {activeTab === 'dashboard' ? (
           <DashboardTab stats={stats} onExportExcel={downloadExcel} />
         ) : (
