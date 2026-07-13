@@ -128,6 +128,17 @@ function App() {
 
   const handleAddToWhitelist = async (lineUserId: string, displayName?: string) => {
     if (!token) return;
+    const confirm = await Swal.fire({
+      title: 'ยืนยันการแต่งตั้งแอดมิน',
+      text: `คุณต้องการแต่งตั้งคุณ ${displayName || 'ผู้ใช้'} เป็นผู้ดูแลระบบใช่หรือไม่?`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'ตั้งเป็นแอดมิน',
+      cancelButtonText: 'ยกเลิก',
+      confirmButtonColor: '#4f46e5'
+    });
+    if (!confirm.isConfirmed) return;
+
     try {
       await adminApi.addToWhitelist(token, lineUserId, displayName);
       fetchWhitelist(token);
