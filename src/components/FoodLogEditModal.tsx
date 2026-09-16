@@ -123,7 +123,7 @@ export const FoodLogEditModal: React.FC<FoodLogEditModalProps> = ({
       setCarbs(result.carbs || 0);
 
       Swal.fire({
-        title: 'วิเคราะห์สำเร็จ! ✨',
+        title: 'วิเคราะห์สำเร็จ!',
         text: `ตรวจพบ "${result.foodName}" (${result.calories} kcal)`,
         icon: 'success',
         timer: 2000,
@@ -219,7 +219,7 @@ export const FoodLogEditModal: React.FC<FoodLogEditModalProps> = ({
         <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
           <div>
             <h3 className="text-lg font-black text-gray-800 tracking-tight">
-              {isEditMode ? '✏️ แก้ไขรายการรูปภาพอาหาร' : '📸 เพิ่มรูปภาพอาหารใหม่'}
+              {isEditMode ? 'แก้ไขรายการรูปภาพอาหาร' : 'เพิ่มรูปภาพอาหารใหม่'}
             </h3>
             <p className="text-xs text-gray-400">
               {isEditMode
@@ -239,13 +239,13 @@ export const FoodLogEditModal: React.FC<FoodLogEditModalProps> = ({
         <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 space-y-5">
           {/* User selector (shown if creating or multiple users) */}
           <div className="space-y-1.5">
-            <label className="text-xs font-bold text-gray-700 block">
+            <label className="text-xs text-gray-700 block">
               ผู้ใช้งานเจ้าของรายการ <span className="text-red-500">*</span>
             </label>
             {isEditMode ? (
               <div className="bg-gray-50 border border-gray-200 rounded-lg p-2.5 text-xs text-gray-600 flex items-center justify-between">
                 <span className="font-semibold">
-                  {initialLog?.user?.displayName || 'ผู้ใช้งาน'} ({initialLog?.user?.lineUserId || initialLog?.userId})
+                  {initialLog?.user?.displayName || 'ผู้ใช้งาน'}
                 </span>
                 <span className="text-[10px] bg-gray-200 text-gray-600 px-2 py-0.5 rounded">
                   คงเดิม
@@ -261,7 +261,7 @@ export const FoodLogEditModal: React.FC<FoodLogEditModalProps> = ({
                 <option value="" disabled>-- เลือกผู้ใช้งาน --</option>
                 {users.map((u) => (
                   <option key={u.id} value={u.id}>
-                    {u.displayName || 'ไม่มีชื่อโปรไฟล์'} ({u.lineUserId})
+                    {u.displayName || 'ไม่มีชื่อโปรไฟล์'}
                   </option>
                 ))}
               </select>
@@ -271,7 +271,7 @@ export const FoodLogEditModal: React.FC<FoodLogEditModalProps> = ({
           {/* Image Upload Area */}
           <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <label className="text-xs font-bold text-gray-700 block">
+              <label className="text-xs text-gray-700 block">
                 รูปภาพอาหาร (Food Image)
               </label>
               {imageUrl && (
@@ -279,7 +279,7 @@ export const FoodLogEditModal: React.FC<FoodLogEditModalProps> = ({
                   type="button"
                   onClick={handleAnalyzeWithAI}
                   disabled={isAnalyzing}
-                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-sm hover:opacity-90 transition cursor-pointer disabled:opacity-50"
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-sm hover:opacity-90 transition cursor-pointer disabled:opacity-50"
                 >
                   {isAnalyzing ? (
                     <>
@@ -288,7 +288,9 @@ export const FoodLogEditModal: React.FC<FoodLogEditModalProps> = ({
                     </>
                   ) : (
                     <>
-                      <span>✨</span>
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+                      </svg>
                       วิเคราะห์ด้วย AI
                     </>
                   )}
@@ -307,14 +309,14 @@ export const FoodLogEditModal: React.FC<FoodLogEditModalProps> = ({
                   <button
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
-                    className="px-3 py-1.5 bg-white text-gray-700 text-xs font-bold rounded-lg shadow hover:bg-gray-100 transition cursor-pointer"
+                    className="px-3 py-1.5 bg-white text-gray-700 text-xs rounded-lg shadow hover:bg-gray-100 transition cursor-pointer"
                   >
                     เปลี่ยนรูป
                   </button>
                   <button
                     type="button"
                     onClick={() => setImageUrl('')}
-                    className="px-3 py-1.5 bg-red-500 text-white text-xs font-bold rounded-lg shadow hover:bg-red-600 transition cursor-pointer"
+                    className="px-3 py-1.5 bg-red-500 text-white text-xs rounded-lg shadow hover:bg-red-600 transition cursor-pointer"
                   >
                     ลบรูป
                   </button>
@@ -335,11 +337,13 @@ export const FoodLogEditModal: React.FC<FoodLogEditModalProps> = ({
                     : 'border-gray-200 hover:border-pink-400 bg-gray-50/50 hover:bg-pink-50/10'
                 }`}
               >
-                <div className="w-12 h-12 rounded-full bg-pink-50 text-pink-500 flex items-center justify-center text-xl">
-                  📸
+                <div className="w-12 h-12 rounded-full bg-pink-50 text-pink-500 flex items-center justify-center">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                  </svg>
                 </div>
                 <div className="space-y-0.5">
-                  <p className="text-xs font-bold text-gray-700">
+                  <p className="text-xs text-gray-700">
                     คลิกเพื่ออัปโหลด หรือลากไฟล์มาวางที่นี่
                   </p>
                   <p className="text-[10px] text-gray-400">
@@ -360,7 +364,7 @@ export const FoodLogEditModal: React.FC<FoodLogEditModalProps> = ({
 
           {/* Food Name */}
           <div className="space-y-1.5">
-            <label className="text-xs font-bold text-gray-700 block">
+            <label className="text-xs text-gray-700 block">
               ชื่อเมนูอาหาร <span className="text-red-500">*</span>
             </label>
             <input
@@ -375,14 +379,14 @@ export const FoodLogEditModal: React.FC<FoodLogEditModalProps> = ({
 
           {/* Calories and Macros Grid */}
           <div className="space-y-2">
-            <label className="text-xs font-bold text-gray-700 block">
+            <label className="text-xs text-gray-700 block">
               ข้อมูลโภชนาการและพลังงาน
             </label>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {/* Calories */}
               <div className="space-y-1">
-                <span className="text-[10px] text-pink-600 font-bold block">
+                <span className="text-[10px] text-pink-600 block">
                   พลังงาน (kcal)
                 </span>
                 <input
@@ -392,13 +396,13 @@ export const FoodLogEditModal: React.FC<FoodLogEditModalProps> = ({
                   placeholder="0"
                   value={calories}
                   onChange={(e) => setCalories(e.target.value)}
-                  className="w-full bg-pink-50/30 border border-pink-200 rounded-lg px-3 py-2 text-xs font-bold text-pink-700 focus:outline-none focus:border-pink-500"
+                  className="w-full bg-pink-50/30 border border-pink-200 rounded-lg px-3 py-2 text-xs text-pink-700 focus:outline-none focus:border-pink-500"
                 />
               </div>
 
               {/* Protein */}
               <div className="space-y-1">
-                <span className="text-[10px] text-red-600 font-bold block">
+                <span className="text-[10px] text-red-600 block">
                   โปรตีน (g)
                 </span>
                 <input
@@ -408,13 +412,13 @@ export const FoodLogEditModal: React.FC<FoodLogEditModalProps> = ({
                   placeholder="0"
                   value={protein}
                   onChange={(e) => setProtein(e.target.value)}
-                  className="w-full bg-red-50/30 border border-red-200 rounded-lg px-3 py-2 text-xs font-bold text-red-700 focus:outline-none focus:border-red-500"
+                  className="w-full bg-red-50/30 border border-red-200 rounded-lg px-3 py-2 text-xs text-red-700 focus:outline-none focus:border-red-500"
                 />
               </div>
 
               {/* Fat */}
               <div className="space-y-1">
-                <span className="text-[10px] text-yellow-600 font-bold block">
+                <span className="text-[10px] text-yellow-600 block">
                   ไขมัน (g)
                 </span>
                 <input
@@ -424,13 +428,13 @@ export const FoodLogEditModal: React.FC<FoodLogEditModalProps> = ({
                   placeholder="0"
                   value={fat}
                   onChange={(e) => setFat(e.target.value)}
-                  className="w-full bg-yellow-50/30 border border-yellow-200 rounded-lg px-3 py-2 text-xs font-bold text-yellow-700 focus:outline-none focus:border-yellow-500"
+                  className="w-full bg-yellow-50/30 border border-yellow-200 rounded-lg px-3 py-2 text-xs text-yellow-700 focus:outline-none focus:border-yellow-500"
                 />
               </div>
 
               {/* Carbs */}
               <div className="space-y-1">
-                <span className="text-[10px] text-green-600 font-bold block">
+                <span className="text-[10px] text-green-600 block">
                   คาร์บ (g)
                 </span>
                 <input
@@ -440,7 +444,7 @@ export const FoodLogEditModal: React.FC<FoodLogEditModalProps> = ({
                   placeholder="0"
                   value={carbs}
                   onChange={(e) => setCarbs(e.target.value)}
-                  className="w-full bg-green-50/30 border border-green-200 rounded-lg px-3 py-2 text-xs font-bold text-green-700 focus:outline-none focus:border-green-500"
+                  className="w-full bg-green-50/30 border border-green-200 rounded-lg px-3 py-2 text-xs text-green-700 focus:outline-none focus:border-green-500"
                 />
               </div>
             </div>
@@ -475,7 +479,7 @@ export const FoodLogEditModal: React.FC<FoodLogEditModalProps> = ({
 
           {/* Date & Time */}
           <div className="space-y-1.5">
-            <label className="text-xs font-bold text-gray-700 block">
+            <label className="text-xs text-gray-700 block">
               วันและเวลาที่บันทึก
             </label>
             <input
@@ -491,14 +495,14 @@ export const FoodLogEditModal: React.FC<FoodLogEditModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-2.5 px-4 rounded-lg border border-gray-200 hover:bg-gray-100 text-gray-600 font-bold text-xs transition cursor-pointer"
+              className="flex-1 py-2.5 px-4 rounded-lg border border-gray-200 hover:bg-gray-100 text-gray-600 text-xs transition cursor-pointer"
             >
               ยกเลิก
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="flex-1 py-2.5 px-4 rounded-lg bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs shadow-md transition cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
+              className="flex-1 py-2.5 px-4 rounded-lg bg-pink-500 hover:bg-pink-600 text-white text-xs shadow-md transition cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
             >
               {isSubmitting ? (
                 <>

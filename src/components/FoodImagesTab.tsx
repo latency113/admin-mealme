@@ -162,8 +162,13 @@ export const FoodImagesTab: React.FC<FoodImagesTabProps> = ({ token, users }) =>
       {/* 1. Header & Overview Title */}
       <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
         <div>
-          <h1 className="text-2xl font-black text-gray-800 tracking-tight flex items-center gap-2">
-            <span>📸</span> จัดการรูปภาพอาหารที่ส่งมา
+          <h1 className="text-2xl font-black text-gray-800 tracking-tight flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-pink-50 text-pink-600 flex items-center justify-center">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+              </svg>
+            </div>
+            จัดการรูปภาพอาหารที่ส่งมา
           </h1>
           <p className="text-xs text-gray-400 mt-0.5">
             คลังรูปภาพอาหารที่ผู้ใช้ส่งผ่าน LINE ทั้งหมด พร้อมระบบตรวจสอบ แก้ไข และลบข้อมูลแบบเรียลไทม์
@@ -172,7 +177,7 @@ export const FoodImagesTab: React.FC<FoodImagesTabProps> = ({ token, users }) =>
 
         <button
           onClick={() => setIsCreateModalOpen(true)}
-          className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center gap-2 cursor-pointer"
+          className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white text-xs py-2.5 px-4 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center gap-2 cursor-pointer"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
@@ -185,11 +190,13 @@ export const FoodImagesTab: React.FC<FoodImagesTabProps> = ({ token, users }) =>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {/* Total Images */}
         <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-center gap-3.5">
-          <div className="w-11 h-11 rounded-xl bg-pink-50 text-pink-500 flex items-center justify-center text-xl flex-shrink-0">
-            🖼️
+          <div className="w-11 h-11 rounded-xl bg-pink-50 text-pink-500 flex items-center justify-center flex-shrink-0">
+            <svg className="w-5 h-5 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+            </svg>
           </div>
           <div>
-            <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">
+            <span className="text-[10px] text-gray-400 uppercase tracking-wider block">
               รูปภาพทั้งหมด
             </span>
             <span className="text-xl font-black text-gray-800 block leading-tight mt-0.5">
@@ -200,11 +207,13 @@ export const FoodImagesTab: React.FC<FoodImagesTabProps> = ({ token, users }) =>
 
         {/* Unique Users */}
         <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-center gap-3.5">
-          <div className="w-11 h-11 rounded-xl bg-purple-50 text-purple-500 flex items-center justify-center text-xl flex-shrink-0">
-            👥
+          <div className="w-11 h-11 rounded-xl bg-purple-50 text-purple-500 flex items-center justify-center flex-shrink-0">
+            <svg className="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.109A11.386 11.386 0 0 1 10.089 20.4a11.386 11.386 0 0 1-4.912-1.164h.018a11.367 11.367 0 0 1 0-1.173c.501-.91.786-1.957.786-3.07v-.003m8.484-1.905c.015.11.022.222.022.336v.109m0-1.618a5.12 5.12 0 0 0-2.237-1.013M9 15.521a4.125 4.125 0 0 0-7.533 2.493 9.337 9.337 0 0 0 4.121.952c.937 0 1.829-.128 2.67-.372L9 15.521Zm-5.4-7.208a3.125 3.125 0 1 1 6.25 0 3.125 3.125 0 0 1-6.25 0Zm12 0a3.125 3.125 0 1 1 6.25 0 3.125 3.125 0 0 1-6.25 0ZM9 5.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            </svg>
           </div>
           <div>
-            <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">
+            <span className="text-[10px] text-gray-400 uppercase tracking-wider block">
               ผู้ใช้ที่ส่งรูป
             </span>
             <span className="text-xl font-black text-gray-800 block leading-tight mt-0.5">
@@ -215,11 +224,13 @@ export const FoodImagesTab: React.FC<FoodImagesTabProps> = ({ token, users }) =>
 
         {/* Total Calories Logged */}
         <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-center gap-3.5">
-          <div className="w-11 h-11 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center text-xl flex-shrink-0">
-            ⚡
+          <div className="w-11 h-11 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center flex-shrink-0">
+            <svg className="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+            </svg>
           </div>
           <div>
-            <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">
+            <span className="text-[10px] text-gray-400 uppercase tracking-wider block">
               พลังงานรวมตรวจพบ
             </span>
             <span className="text-xl font-black text-gray-800 block leading-tight mt-0.5">
@@ -231,11 +242,13 @@ export const FoodImagesTab: React.FC<FoodImagesTabProps> = ({ token, users }) =>
 
         {/* Today's Uploads */}
         <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-center gap-3.5">
-          <div className="w-11 h-11 rounded-xl bg-green-50 text-green-500 flex items-center justify-center text-xl flex-shrink-0">
-            📅
+          <div className="w-11 h-11 rounded-xl bg-green-50 text-green-500 flex items-center justify-center flex-shrink-0">
+            <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 9v7.5" />
+            </svg>
           </div>
           <div>
-            <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">
+            <span className="text-[10px] text-gray-400 uppercase tracking-wider block">
               รูปภาพวันนี้
             </span>
             <span className="text-xl font-black text-green-600 block leading-tight mt-0.5">
@@ -252,7 +265,7 @@ export const FoodImagesTab: React.FC<FoodImagesTabProps> = ({ token, users }) =>
           <form onSubmit={handleSearchSubmit} className="relative flex-1">
             <input
               type="text"
-              placeholder="ค้นหาชื่อเมนู, ชื่อผู้ใช้, หรือ LINE ID..."
+              placeholder="ค้นหาชื่อเมนู หรือชื่อผู้ใช้..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full bg-gray-50 border border-gray-200 pl-9 pr-4 py-2 rounded-lg text-xs text-gray-800 placeholder-gray-400 focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-all"
@@ -277,10 +290,10 @@ export const FoodImagesTab: React.FC<FoodImagesTabProps> = ({ token, users }) =>
               }}
               className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-xs text-gray-700 focus:outline-none focus:border-pink-500"
             >
-              <option value="all">👥 ผู้ใช้ทั้งหมด ({users.length} คน)</option>
+              <option value="all">ผู้ใช้ทั้งหมด ({users.length} คน)</option>
               {users.map((u) => (
                 <option key={u.id} value={u.id}>
-                  {u.displayName || 'ไม่มีโปรไฟล์'} ({u.lineUserId.substring(0, 8)}...)
+                  {u.displayName || 'ไม่มีโปรไฟล์'}
                 </option>
               ))}
             </select>
@@ -293,10 +306,10 @@ export const FoodImagesTab: React.FC<FoodImagesTabProps> = ({ token, users }) =>
               onChange={(e) => setSortBy(e.target.value as any)}
               className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-xs text-gray-700 focus:outline-none focus:border-pink-500"
             >
-              <option value="newest">🕒 ล่าสุด - เก่าสุด</option>
-              <option value="oldest">🕒 เก่าสุด - ล่าสุด</option>
-              <option value="cal_desc">🔥 แคลอรี: มาก ➔ น้อย</option>
-              <option value="cal_asc">🥗 แคลอรี: น้อย ➔ มาก</option>
+              <option value="newest">ล่าสุด - เก่าสุด</option>
+              <option value="oldest">เก่าสุด - ล่าสุด</option>
+              <option value="cal_desc">แคลอรี: มาก ➔ น้อย</option>
+              <option value="cal_asc">แคลอรี: น้อย ➔ มาก</option>
             </select>
           </div>
 
@@ -307,7 +320,7 @@ export const FoodImagesTab: React.FC<FoodImagesTabProps> = ({ token, users }) =>
               onClick={() => setViewMode('grid')}
               className={`p-1.5 rounded-md transition cursor-pointer ${
                 viewMode === 'grid'
-                  ? 'bg-white text-pink-600 shadow-sm font-bold'
+                  ? 'bg-white text-pink-600 shadow-sm '
                   : 'text-gray-400 hover:text-gray-700'
               }`}
               title="มุมมองแกลเลอรีรูปภาพ"
@@ -321,7 +334,7 @@ export const FoodImagesTab: React.FC<FoodImagesTabProps> = ({ token, users }) =>
               onClick={() => setViewMode('table')}
               className={`p-1.5 rounded-md transition cursor-pointer ${
                 viewMode === 'table'
-                  ? 'bg-white text-pink-600 shadow-sm font-bold'
+                  ? 'bg-white text-pink-600 shadow-sm '
                   : 'text-gray-400 hover:text-gray-700'
               }`}
               title="มุมมองตารางรายการ"
@@ -350,7 +363,7 @@ export const FoodImagesTab: React.FC<FoodImagesTabProps> = ({ token, users }) =>
                 setDateFilter(t.key);
                 setCurrentPage(1);
               }}
-              className={`px-3 py-1 rounded-full font-bold transition cursor-pointer ${
+              className={`px-3 py-1 rounded-full  transition cursor-pointer ${
                 dateFilter === t.key
                   ? 'bg-pink-500 text-white shadow-sm'
                   : 'bg-gray-100 hover:bg-gray-200 text-gray-600'
@@ -369,20 +382,22 @@ export const FoodImagesTab: React.FC<FoodImagesTabProps> = ({ token, users }) =>
       {loading ? (
         <div className="bg-white rounded-xl border border-gray-100 p-16 flex flex-col items-center justify-center gap-3">
           <div className="w-10 h-10 border-4 border-pink-500 border-t-transparent rounded-full animate-spin" />
-          <p className="text-xs text-gray-400 font-bold">กำลังโหลดคลังรูปภาพอาหาร...</p>
+          <p className="text-xs text-gray-400 ">กำลังโหลดคลังรูปภาพอาหาร...</p>
         </div>
       ) : filteredAndSortedLogs.length === 0 ? (
         <div className="bg-white rounded-xl border border-gray-100 p-16 text-center space-y-3">
-          <div className="w-16 h-16 rounded-full bg-pink-50 text-pink-500 flex items-center justify-center text-3xl mx-auto">
-            🥗
+          <div className="w-16 h-16 rounded-full bg-pink-50 text-pink-500 flex items-center justify-center mx-auto">
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+            </svg>
           </div>
-          <h3 className="text-base font-bold text-gray-700">ไม่พบรายการรูปภาพอาหาร</h3>
+          <h3 className="text-base text-gray-700">ไม่พบรายการรูปภาพอาหาร</h3>
           <p className="text-xs text-gray-400 max-w-sm mx-auto">
             ไม่พบรูปภาพอาหารตามเงื่อนไขการค้นหาหรือตัวกรองที่ระบุ ลองเปลี่ยนคำค้นหา หรือกดปุ่ม &quot;เพิ่มรูปภาพอาหารใหม่&quot;
           </p>
           <button
             onClick={() => setIsCreateModalOpen(true)}
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-pink-600 hover:text-pink-700 bg-pink-50 hover:bg-pink-100 py-2 px-4 rounded-lg transition cursor-pointer"
+            className="inline-flex items-center gap-1.5 text-xs text-pink-600 hover:text-pink-700 bg-pink-50 hover:bg-pink-100 py-2 px-4 rounded-lg transition cursor-pointer"
           >
             + บันทึกรูปภาพแรก
           </button>
@@ -408,23 +423,42 @@ export const FoodImagesTab: React.FC<FoodImagesTabProps> = ({ token, users }) =>
                     loading="lazy"
                   />
                 ) : (
-                  <div className="text-gray-500 text-xs flex flex-col items-center gap-1">
-                    <span className="text-3xl">🍽️</span>
+                  <div className="text-gray-400 text-xs flex flex-col items-center gap-1">
+                    <svg className="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                    </svg>
                     <span>ไม่มีรูป</span>
                   </div>
                 )}
 
                 {/* Hover overlay button */}
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <span className="bg-white/90 backdrop-blur-xs text-gray-800 text-xs font-bold px-3 py-1.5 rounded-full shadow flex items-center gap-1.5">
-                    <span>🔍</span> คลิกเพื่อดูรูปเต็ม
+                  <span className="bg-white/90 backdrop-blur-xs text-gray-800 text-xs px-3 py-1.5 rounded-full shadow flex items-center gap-1.5">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    คลิกเพื่อดูรูปเต็ม
                   </span>
                 </div>
 
                 {/* Top Left Badge: Source */}
                 <div className="absolute top-2.5 left-2.5">
-                  <span className="bg-black/60 backdrop-blur-xs text-white text-[9px] font-bold px-2 py-0.5 rounded-md">
-                    {log.sourceType === 'IMAGE' ? '📷 รูปภาพ' : '💬 ข้อความ'}
+                  <span className="bg-black/60 backdrop-blur-xs text-white text-[9px] px-2 py-0.5 rounded-md flex items-center gap-1">
+                    {log.sourceType === 'IMAGE' ? (
+                      <>
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                        </svg>
+                        รูปภาพ
+                      </>
+                    ) : (
+                      <>
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.502 49.188 49.188 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v5.019Z" />
+                        </svg>
+                        ข้อความ
+                      </>
+                    )}
                   </span>
                 </div>
 
@@ -442,7 +476,7 @@ export const FoodImagesTab: React.FC<FoodImagesTabProps> = ({ token, users }) =>
                   <div className="flex justify-between items-start gap-2">
                     <h3
                       onClick={() => setLightboxLog(log)}
-                      className="font-bold text-sm text-gray-800 hover:text-pink-600 transition truncate cursor-pointer"
+                      className=" text-sm text-gray-800 hover:text-pink-600 transition truncate cursor-pointer"
                       title={log.foodName}
                     >
                       {log.foodName}
@@ -451,7 +485,7 @@ export const FoodImagesTab: React.FC<FoodImagesTabProps> = ({ token, users }) =>
 
                   {/* User Badge */}
                   <div className="flex items-center gap-1.5 text-[11px] text-gray-500">
-                    <span className="w-5 h-5 rounded-full bg-pink-50 text-pink-600 flex items-center justify-center font-bold text-[9px] flex-shrink-0">
+                    <span className="w-5 h-5 rounded-full bg-pink-50 text-pink-600 flex items-center justify-center  text-[9px] flex-shrink-0">
                       {log.user?.displayName?.charAt(0) || 'U'}
                     </span>
                     <span className="font-semibold text-gray-700 truncate">
@@ -463,16 +497,16 @@ export const FoodImagesTab: React.FC<FoodImagesTabProps> = ({ token, users }) =>
                 {/* Macronutrients pills */}
                 <div className="grid grid-cols-3 gap-1.5 text-center text-[10px] pt-1 border-t border-gray-50">
                   <div className="bg-red-50/60 p-1.5 rounded border border-red-100/50">
-                    <span className="text-[9px] text-red-500 font-bold block">โปรตีน</span>
-                    <span className="font-bold text-red-700">{log.protein}g</span>
+                    <span className="text-[9px] text-red-500  block">โปรตีน</span>
+                    <span className=" text-red-700">{log.protein}g</span>
                   </div>
                   <div className="bg-yellow-50/60 p-1.5 rounded border border-yellow-100/50">
-                    <span className="text-[9px] text-yellow-600 font-bold block">ไขมัน</span>
-                    <span className="font-bold text-yellow-700">{log.fat}g</span>
+                    <span className="text-[9px] text-yellow-600  block">ไขมัน</span>
+                    <span className=" text-yellow-700">{log.fat}g</span>
                   </div>
                   <div className="bg-green-50/60 p-1.5 rounded border border-green-100/50">
-                    <span className="text-[9px] text-green-600 font-bold block">คาร์บ</span>
-                    <span className="font-bold text-green-700">{log.carbs}g</span>
+                    <span className="text-[9px] text-green-600  block">คาร์บ</span>
+                    <span className=" text-green-700">{log.carbs}g</span>
                   </div>
                 </div>
 
@@ -552,7 +586,7 @@ export const FoodImagesTab: React.FC<FoodImagesTabProps> = ({ token, users }) =>
                     <td className="py-3 px-4 text-center">
                       <div
                         onClick={() => setLightboxLog(log)}
-                        className="w-12 h-12 rounded-lg bg-gray-100 overflow-hidden border border-gray-200 mx-auto cursor-pointer hover:opacity-80 transition"
+                        className="w-12 h-12 rounded-lg bg-gray-100 overflow-hidden border border-gray-200 mx-auto cursor-pointer hover:opacity-80 transition flex items-center justify-center"
                       >
                         {log.imageUrl ? (
                           <img
@@ -561,9 +595,9 @@ export const FoodImagesTab: React.FC<FoodImagesTabProps> = ({ token, users }) =>
                             className="w-full h-full object-cover"
                           />
                         ) : (
-                          <div className="w-full h-full flex items-center justify-center text-xs text-gray-400">
-                            🍽️
-                          </div>
+                          <svg className="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                          </svg>
                         )}
                       </div>
                     </td>
@@ -572,18 +606,15 @@ export const FoodImagesTab: React.FC<FoodImagesTabProps> = ({ token, users }) =>
                     <td className="py-3 px-4">
                       <p
                         onClick={() => setLightboxLog(log)}
-                        className="font-bold text-gray-800 hover:text-pink-600 transition cursor-pointer"
+                        className="text-gray-800 hover:text-pink-600 transition cursor-pointer"
                       >
                         {log.foodName}
                       </p>
-                      <span className="text-[10px] text-gray-400 font-normal">
-                        ID: {log.id.substring(0, 8)}...
-                      </span>
                     </td>
 
                     {/* Calories */}
                     <td className="py-3 px-4 text-center">
-                      <span className="inline-block px-2.5 py-1 rounded-full bg-pink-50 text-pink-600 font-bold text-xs">
+                      <span className="inline-block px-2.5 py-1 rounded-full bg-pink-50 text-pink-600 text-xs">
                         {Math.round(log.calories)} kcal
                       </span>
                     </td>
@@ -591,13 +622,13 @@ export const FoodImagesTab: React.FC<FoodImagesTabProps> = ({ token, users }) =>
                     {/* Macros */}
                     <td className="py-3 px-4 text-center">
                       <div className="inline-flex items-center gap-1.5 text-[10px]">
-                        <span className="px-1.5 py-0.5 rounded bg-red-50 text-red-600 font-bold">
+                        <span className="px-1.5 py-0.5 rounded bg-red-50 text-red-600">
                           P: {log.protein}g
                         </span>
-                        <span className="px-1.5 py-0.5 rounded bg-yellow-50 text-yellow-600 font-bold">
+                        <span className="px-1.5 py-0.5 rounded bg-yellow-50 text-yellow-600">
                           F: {log.fat}g
                         </span>
-                        <span className="px-1.5 py-0.5 rounded bg-green-50 text-green-600 font-bold">
+                        <span className="px-1.5 py-0.5 rounded bg-green-50 text-green-600">
                           C: {log.carbs}g
                         </span>
                       </div>
@@ -605,11 +636,8 @@ export const FoodImagesTab: React.FC<FoodImagesTabProps> = ({ token, users }) =>
 
                     {/* User */}
                     <td className="py-3 px-4">
-                      <p className="font-bold text-gray-700">
+                      <p className="text-gray-700">
                         {log.user?.displayName || 'ไม่ระบุชื่อ'}
-                      </p>
-                      <p className="text-[10px] text-gray-400 font-mono">
-                        {log.user?.lineUserId?.substring(0, 10)}...
                       </p>
                     </td>
 
@@ -631,24 +659,31 @@ export const FoodImagesTab: React.FC<FoodImagesTabProps> = ({ token, users }) =>
                       <div className="flex items-center justify-center gap-1.5">
                         <button
                           onClick={() => setLightboxLog(log)}
-                          className="p-1.5 rounded-lg bg-gray-50 hover:bg-pink-50 text-gray-400 hover:text-pink-600 transition cursor-pointer"
+                          className="w-7 h-7 rounded-lg bg-gray-50 hover:bg-pink-50 text-gray-400 hover:text-pink-600 flex items-center justify-center transition cursor-pointer"
                           title="ดูรูปภาพขนาดเต็ม"
                         >
-                          👁️
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                          </svg>
                         </button>
                         <button
                           onClick={() => setEditingLog(log)}
-                          className="p-1.5 rounded-lg bg-gray-50 hover:bg-blue-50 text-gray-400 hover:text-blue-600 transition cursor-pointer"
+                          className="w-7 h-7 rounded-lg bg-gray-50 hover:bg-blue-50 text-gray-400 hover:text-blue-600 flex items-center justify-center transition cursor-pointer"
                           title="แก้ไขข้อมูล"
                         >
-                          ✏️
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                          </svg>
                         </button>
                         <button
                           onClick={() => handleDeleteLog(log)}
-                          className="p-1.5 rounded-lg bg-gray-50 hover:bg-red-50 text-gray-400 hover:text-red-600 transition cursor-pointer"
+                          className="w-7 h-7 rounded-lg bg-gray-50 hover:bg-red-50 text-gray-400 hover:text-red-600 flex items-center justify-center transition cursor-pointer"
                           title="ลบรายการ"
                         >
-                          🗑️
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
                         </button>
                       </div>
                     </td>
@@ -686,7 +721,7 @@ export const FoodImagesTab: React.FC<FoodImagesTabProps> = ({ token, users }) =>
                 <button
                   key={pageNum}
                   onClick={() => setCurrentPage(pageNum)}
-                  className={`w-8 h-8 rounded-lg font-bold text-xs transition cursor-pointer ${
+                  className={`w-8 h-8 rounded-lg  text-xs transition cursor-pointer ${
                     currentPage === pageNum
                       ? 'bg-pink-500 text-white shadow-sm'
                       : 'border border-gray-200 bg-white hover:bg-gray-50 text-gray-600'

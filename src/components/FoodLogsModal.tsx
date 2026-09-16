@@ -182,7 +182,7 @@ export const FoodLogsModal: React.FC<FoodLogsModalProps> = ({
         <div className="flex justify-between items-center pb-3 border-b border-gray-50 flex-shrink-0">
           <div>
             <h3 className="text-base text-gray-800 tracking-tight">
-              ประวัติสุขภาพของ <span className="font-bold text-lg">{selectedUser.displayName || 'ผู้ใช้'}</span>
+              ประวัติสุขภาพของ <span className="font-semibold text-lg">{selectedUser.displayName || 'ผู้ใช้'}</span>
             </h3>
           </div>
           <button
@@ -214,7 +214,7 @@ export const FoodLogsModal: React.FC<FoodLogsModalProps> = ({
             <button
               onClick={() => setTimeframe('daily')}
               className={`flex-1 py-2 text-xs font-semibold text-center rounded transition-colors duration-300 cursor-pointer relative z-10 ${
-                timeframe === 'daily' ? 'text-white font-bold' : 'text-gray-500 hover:text-pink-500'
+                timeframe === 'daily' ? 'text-white font-semibold' : 'text-gray-500 hover:text-pink-500'
               }`}
             >
               รายวัน
@@ -222,7 +222,7 @@ export const FoodLogsModal: React.FC<FoodLogsModalProps> = ({
             <button
               onClick={() => setTimeframe('7days')}
               className={`flex-1 py-2 text-xs font-semibold text-center rounded transition-colors duration-300 cursor-pointer relative z-10 ${
-                timeframe === '7days' ? 'text-white font-bold' : 'text-gray-500 hover:text-pink-500'
+                timeframe === '7days' ? 'text-white font-semibold' : 'text-gray-500 hover:text-pink-500'
               }`}
             >
               7 วันที่ผ่านมา
@@ -230,7 +230,7 @@ export const FoodLogsModal: React.FC<FoodLogsModalProps> = ({
             <button
               onClick={() => setTimeframe('30days')}
               className={`flex-1 py-2 text-xs font-semibold text-center rounded transition-colors duration-300 cursor-pointer relative z-10 ${
-                timeframe === '30days' ? 'text-white font-bold' : 'text-gray-500 hover:text-pink-500'
+                timeframe === '30days' ? 'text-white font-semibold' : 'text-gray-500 hover:text-pink-500'
               }`}
             >
               30 วันที่ผ่านมา
@@ -252,7 +252,7 @@ export const FoodLogsModal: React.FC<FoodLogsModalProps> = ({
               {/* 1. Calorie Stats Card */}
               <div className="bg-white p-5 rounded-lg border border-gray-100 shadow-sm space-y-4">
                 <div className="flex justify-between items-center text-xs">
-                  <h4 className="text-gray-800 font-bold">
+                  <h4 className="text-gray-800 font-semibold">
                     สรุปพลังงานแคลอรี ({timeframe === 'daily' ? 'รายวัน' : timeframe === '7days' ? '7 วันที่ผ่านมา' : '30 วันที่ผ่านมา'})
                   </h4>
                   <span className="text-gray-400 font-medium">เป้าหมาย: {totalGoal.toLocaleString()} kcal</span>
@@ -261,13 +261,13 @@ export const FoodLogsModal: React.FC<FoodLogsModalProps> = ({
                 <div className="grid grid-cols-3 gap-3">
                   <div className="bg-pink-50/40 p-3 rounded border border-pink-100/30 text-center flex flex-col justify-between h-20">
                     <span className="text-[10px] text-gray-500 block leading-tight">บริโภคแล้ว</span>
-                    <span className="text-base text-pink-600 font-bold block mt-1">{totalConsumed.toLocaleString()}</span>
+                    <span className="text-base text-pink-600 font-semibold block mt-1">{totalConsumed.toLocaleString()}</span>
                     <span className="text-[9px] text-gray-400 block">kcal</span>
                   </div>
 
                   <div className="bg-green-50/40 p-3 rounded border border-green-100/30 text-center flex flex-col justify-between h-20">
                     <span className="text-[10px] text-gray-500 font-medium block leading-tight">ยังขาดอีก</span>
-                    <span className="text-base text-green-600 font-bold block mt-1">{deficit.toLocaleString()}</span>
+                    <span className="text-base text-green-600 font-semibold block mt-1">{deficit.toLocaleString()}</span>
                     <span className="text-[9px] text-gray-400 block">kcal</span>
                   </div>
 
@@ -275,7 +275,7 @@ export const FoodLogsModal: React.FC<FoodLogsModalProps> = ({
                     excess > 0 ? 'bg-red-50/60 border-red-100/50' : 'bg-gray-50 border-gray-100'
                   }`}>
                     <span className="text-[10px] text-gray-500 font-medium block leading-tight">เกินเป้าหมาย</span>
-                    <span className={`text-base font-bold mt-1 block ${excess > 0 ? 'text-red-600 animate-pulse' : 'text-gray-400'}`}>
+                    <span className={`text-base font-semibold mt-1 block ${excess > 0 ? 'text-red-600 animate-pulse' : 'text-gray-400'}`}>
                       {excess.toLocaleString()}
                     </span>
                     <span className="text-[9px] text-gray-400 block">kcal</span>
@@ -320,7 +320,7 @@ export const FoodLogsModal: React.FC<FoodLogsModalProps> = ({
               {timeframe === '7days' && (
                 <div className="bg-white p-5 rounded-lg border border-gray-100 shadow-sm space-y-4 animate-fade-in animate-duration-300">
                   <div className="flex justify-between items-center text-xs">
-                    <h4 className="text-gray-800 font-bold">กราฟพลังงาน 7 วันย้อนหลัง</h4>
+                    <h4 className="text-gray-800 font-semibold">กราฟพลังงาน 7 วันย้อนหลัง</h4>
                     <span className="text-gray-400 font-medium">เป้าหมาย: {dailyCalorieGoal.toLocaleString()} kcal / วัน</span>
                   </div>
 
@@ -356,13 +356,13 @@ export const FoodLogsModal: React.FC<FoodLogsModalProps> = ({
               {/* 3. Nutrition breakdown */}
               <div className="bg-white p-5 rounded-lg border border-gray-100 shadow-sm space-y-4">
                 <div className="flex justify-between items-center text-xs">
-                  <h4 className="text-gray-800 font-bold">โภชนาการที่แนะนำต่อวัน</h4>
-                  <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                  <h4 className="text-gray-800 font-semibold">โภชนาการที่แนะนำต่อวัน</h4>
+                  <span className={`px-2 py-0.5 rounded text-[10px] font-semibold ${
                     userGoal === 'lose' ? 'bg-orange-50 text-orange-600' :
                       userGoal === 'gain' ? 'bg-green-50 text-green-600' :
                         'bg-blue-50 text-blue-600'
                   }`}>
-                    {userGoal === 'lose' ? 'สูตรลดน้ำหนัก 📉' : userGoal === 'gain' ? 'สูตรเพิ่มน้ำหนัก 📈' : 'สูตรสมดุล ⚖️'}
+                    {userGoal === 'lose' ? 'สูตรลดน้ำหนัก' : userGoal === 'gain' ? 'สูตรเพิ่มน้ำหนัก' : 'สูตรสมดุล'}
                   </span>
                 </div>
 
@@ -461,11 +461,11 @@ export const FoodLogsModal: React.FC<FoodLogsModalProps> = ({
               {/* 4. Logged Meals list */}
               <div className="bg-white p-5 rounded-lg border border-gray-100 shadow-sm space-y-4">
                 <div className="flex justify-between items-center">
-                  <h4 className="text-xs text-gray-800 font-bold uppercase tracking-wider">รายการอาหารที่บันทึก</h4>
+                  <h4 className="text-xs text-gray-800 font-semibold uppercase tracking-wider">รายการอาหารที่บันทึก</h4>
                   {token && (
                     <button
                       onClick={() => setIsAddModalOpen(true)}
-                      className="text-xs font-bold text-pink-600 bg-pink-50 hover:bg-pink-100 py-1.5 px-3 rounded-lg transition cursor-pointer flex items-center gap-1"
+                      className="text-xs font-semibold text-pink-600 bg-pink-50 hover:bg-pink-100 py-1.5 px-3 rounded-lg transition cursor-pointer flex items-center gap-1"
                     >
                       + เพิ่มรายการอาหาร
                     </button>
@@ -475,7 +475,11 @@ export const FoodLogsModal: React.FC<FoodLogsModalProps> = ({
                 <div className="space-y-3">
                   {filteredLogs.length === 0 ? (
                     <div className="text-center py-10 space-y-2">
-                      <span className="text-3xl">🥗</span>
+                      <div className="w-12 h-12 rounded-full bg-pink-50 text-pink-500 flex items-center justify-center mx-auto">
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                        </svg>
+                      </div>
                       <p className="text-xs text-gray-400 font-semibold">ไม่มีรายการบันทึกอาหารในช่วงเวลานี้</p>
                     </div>
                   ) : (
@@ -489,7 +493,9 @@ export const FoodLogsModal: React.FC<FoodLogsModalProps> = ({
                             >
                               <img src={log.imageUrl} alt={log.foodName} className="w-full h-full object-cover" />
                               <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs">
-                                🔍
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
                               </div>
                             </div>
                           ) :
@@ -517,14 +523,18 @@ export const FoodLogsModal: React.FC<FoodLogsModalProps> = ({
                                     className="w-6 h-6 rounded bg-white border border-gray-200 text-gray-400 hover:text-blue-600 hover:border-blue-200 flex items-center justify-center text-[10px] transition cursor-pointer"
                                     title="แก้ไขข้อมูล"
                                   >
-                                    ✏️
+                                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                    </svg>
                                   </button>
                                   <button
                                     onClick={() => handleDeleteLog(log)}
                                     className="w-6 h-6 rounded bg-white border border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-200 flex items-center justify-center text-[10px] transition cursor-pointer"
                                     title="ลบรายการ"
                                   >
-                                    🗑️
+                                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
                                   </button>
                                 </div>
                               )}
@@ -533,19 +543,19 @@ export const FoodLogsModal: React.FC<FoodLogsModalProps> = ({
 
                           <div className="grid grid-cols-4 gap-2 text-center text-[10px] mt-2.5">
                             <div className="bg-pink-50/50 p-1.5 rounded-md border border-pink-100/10">
-                              <p className="text-xs text-pink-600 font-bold">{Math.round(log.calories)}</p>
+                              <p className="text-xs text-pink-600 font-semibold">{Math.round(log.calories)}</p>
                               <p className="text-[8px] text-gray-400 font-medium">แคล</p>
                             </div>
                             <div className="bg-red-50/50 p-1.5 rounded-md border border-red-100/10">
-                              <p className="text-xs text-red-600 font-bold">{log.protein}</p>
+                              <p className="text-xs text-red-600 font-semibold">{log.protein}</p>
                               <p className="text-[8px] text-gray-400 font-medium">โปรตีน</p>
                             </div>
                             <div className="bg-yellow-50/50 p-1.5 rounded-md border border-yellow-100/10">
-                              <p className="text-xs text-yellow-600 font-bold">{log.fat}</p>
+                              <p className="text-xs text-yellow-600 font-semibold">{log.fat}</p>
                               <p className="text-[8px] text-gray-400 font-medium">ไขมัน</p>
                             </div>
                             <div className="bg-green-50/50 p-1.5 rounded-md border border-green-100/10">
-                              <p className="text-xs text-green-600 font-bold">{log.carbs}</p>
+                              <p className="text-xs text-green-600 font-semibold">{log.carbs}</p>
                               <p className="text-[8px] text-gray-400 font-medium">คาร์บ</p>
                             </div>
                           </div>

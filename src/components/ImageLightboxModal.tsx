@@ -50,7 +50,9 @@ export const ImageLightboxModal: React.FC<ImageLightboxModalProps> = ({
             />
           ) : (
             <div className="text-gray-500 text-sm flex flex-col items-center gap-2">
-              <span className="text-4xl">🍽️</span>
+              <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+              </svg>
               <span>ไม่มีรูปภาพสำหรับรายการนี้</span>
             </div>
           )}
@@ -70,8 +72,22 @@ export const ImageLightboxModal: React.FC<ImageLightboxModalProps> = ({
             {/* Header */}
             <div className="flex justify-between items-start gap-2">
               <div>
-                <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-pink-50 text-pink-600 border border-pink-100 mb-1.5">
-                  {log.sourceType === 'IMAGE' ? '📷 ส่งผ่านรูปภาพ' : '💬 ส่งผ่านข้อความ'}
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-pink-50 text-pink-600 border border-pink-100 mb-1.5">
+                  {log.sourceType === 'IMAGE' ? (
+                    <>
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                      </svg>
+                      ส่งผ่านรูปภาพ
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.502 49.188 49.188 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v5.019Z" />
+                      </svg>
+                      ส่งผ่านข้อความ
+                    </>
+                  )}
                 </span>
                 <h3 className="text-xl font-black text-gray-800 leading-tight">
                   {log.foodName}
@@ -89,16 +105,10 @@ export const ImageLightboxModal: React.FC<ImageLightboxModalProps> = ({
             <div className="bg-gray-50 p-3.5 rounded-xl border border-gray-100 space-y-1.5 text-xs">
               <div className="flex items-center gap-2">
                 <span className="text-gray-400 font-medium">ผู้ส่ง:</span>
-                <span className="font-bold text-gray-700">
+                <span className="font-semibold text-gray-700">
                   {log.user?.displayName || 'ไม่ระบุชื่อ'}
                 </span>
               </div>
-              {log.user?.lineUserId && (
-                <div className="flex items-center gap-2 text-[10px] text-gray-400 truncate">
-                  <span>LINE ID:</span>
-                  <span className="font-mono truncate">{log.user.lineUserId}</span>
-                </div>
-              )}
               <div className="flex items-center gap-2 text-gray-500 pt-1 border-t border-gray-100/80">
                 <span className="text-gray-400">บันทึกเมื่อ:</span>
                 <span>
@@ -121,13 +131,13 @@ export const ImageLightboxModal: React.FC<ImageLightboxModalProps> = ({
                 <span className="text-3xl font-black text-pink-600">
                   {Math.round(log.calories).toLocaleString()}
                 </span>
-                <span className="text-xs text-pink-400 font-bold">kcal</span>
+                <span className="text-xs text-pink-400 font-semibold">kcal</span>
               </div>
             </div>
 
             {/* Macros Breakdown */}
             <div className="space-y-3">
-              <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+              <h4 className="text-xs font-semibold text-gray-700 uppercase tracking-wider">
                 สารอาหารหลัก (Macronutrients)
               </h4>
 
@@ -180,7 +190,7 @@ export const ImageLightboxModal: React.FC<ImageLightboxModalProps> = ({
                     onClose();
                     onEdit(log);
                   }}
-                  className="py-2.5 px-3 rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
+                  className="py-2.5 px-3 rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-600 font-semibold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -195,7 +205,7 @@ export const ImageLightboxModal: React.FC<ImageLightboxModalProps> = ({
                     onClose();
                     onDelete(log);
                   }}
-                  className="py-2.5 px-3 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
+                  className="py-2.5 px-3 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 font-semibold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
