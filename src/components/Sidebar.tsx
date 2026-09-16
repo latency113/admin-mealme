@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { MealmeLogo } from './MealmeLogo';
 
 interface SidebarProps {
-  activeTab: 'dashboard' | 'users';
-  setActiveTab: (tab: 'dashboard' | 'users') => void;
+  activeTab: 'dashboard' | 'users' | 'images';
+  setActiveTab: (tab: 'dashboard' | 'users' | 'images') => void;
   adminProfile: any;
   onLogout: () => void;
 }
@@ -66,6 +66,17 @@ export const Sidebar: React.FC<SidebarProps> = ({
               >
                 ข้อมูลรายบุคคล
               </button>
+              <button
+                onClick={() => {
+                  setActiveTab('images');
+                  setIsMobileOpen(false);
+                }}
+                className={`w-full text-left py-3 px-4 rounded-lg text-sm font-semibold flex items-center gap-3 transition cursor-pointer ${
+                  activeTab === 'images' ? 'bg-pink-500 text-white shadow-md' : 'text-gray-500 hover:bg-pink-50/50 hover:text-pink-500'
+                }`}
+              >
+                จัดการรูปภาพอาหาร
+              </button>
             </nav>
 
             <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
@@ -109,7 +120,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 top: '16px',
                 transform: activeTab === 'dashboard'
                   ? 'translateY(0)'
-                  : 'translateY(54px)',
+                  : activeTab === 'users'
+                    ? 'translateY(54px)'
+                    : 'translateY(108px)',
               }}
             />
 
@@ -136,6 +149,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.109A11.386 11.386 0 0 1 10.089 20.4a11.386 11.386 0 0 1-4.912-1.164h.018a11.367 11.367 0 0 1 0-1.173c.501-.91.786-1.957.786-3.07v-.003m8.484-1.905c.015.11.022.222.022.336v.109m0-1.618a5.12 5.12 0 0 0-2.237-1.013M9 15.521a4.125 4.125 0 0 0-7.533 2.493 9.337 9.337 0 0 0 4.121.952c.937 0 1.829-.128 2.67-.372L9 15.521Zm-5.4-7.208a3.125 3.125 0 1 1 6.25 0 3.125 3.125 0 0 1-6.25 0Zm12 0a3.125 3.125 0 1 1 6.25 0 3.125 3.125 0 0 1-6.25 0ZM9 5.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
               </svg>
               <span className="hidden xl:inline text-xs font-semibold">ข้อมูลรายบุคคล</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('images')}
+              className={`w-full h-[48px] rounded-lg text-sm font-semibold flex items-center justify-center xl:justify-start gap-3 transition-colors duration-300 cursor-pointer relative z-10 px-3 xl:px-4 ${
+                activeTab === 'images' ? 'text-white font-bold' : 'text-gray-500 hover:text-pink-500'
+              }`}
+              title="จัดการรูปภาพอาหาร"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-5 h-5 flex-shrink-0">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+              </svg>
+              <span className="hidden xl:inline text-xs font-semibold">จัดการรูปภาพ</span>
             </button>
           </nav>
         </div>

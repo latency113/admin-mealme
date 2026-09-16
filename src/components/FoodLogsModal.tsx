@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
+import Swal from 'sweetalert2';
 import type { UserProfile, FoodLog } from '../types/admin';
 import { DateSelector } from './DateSelector';
+import { adminApi } from '../services/api';
+import { ImageLightboxModal } from './ImageLightboxModal';
+import { FoodLogEditModal } from './FoodLogEditModal';
 
 interface FoodLogsModalProps {
   selectedUser: UserProfile | null;
   logs: FoodLog[];
   loading: boolean;
   onClose: () => void;
+  token?: string | null;
+  onRefreshLogs?: () => void;
+  allUsers?: UserProfile[];
 }
 
 const getLocalDateStr = (isoString: string): string => {
@@ -22,14 +29,21 @@ export const FoodLogsModal: React.FC<FoodLogsModalProps> = ({
   logs,
   loading,
   onClose,
+  token,
+  onRefreshLogs,
+  allUsers = [],
 }) => {
-  if (!selectedUser) return null;
+  const [lightboxLog, setLightboxLog] = useState<FoodLog | null>(null);
+  const [editingLog, setEditingLog] = useState<FoodLog | null>(null);
+  const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
 
   const [timeframe, setTimeframe] = useState<'daily' | '7days' | '30days'>('daily');
   const [selectedDate, setSelectedDate] = useState<Date>(() => {
     const now = new Date();
     return new Date(now.getFullYear(), now.getMonth(), now.getDate());
   });
+
+  if (!selectedUser) return null;
 
   const dailyCalorieGoal = selectedUser.dailyCalorieGoal || 2000;
   const userGoal = (selectedUser.goal as 'lose' | 'maintain' | 'gain') || 'maintain';
@@ -133,6 +147,33 @@ export const FoodLogsModal: React.FC<FoodLogsModalProps> = ({
   };
 
   const chartData = getLast7DaysData();
+
+  const handleDeleteLog = async (log: FoodLog) => {
+    if (!token) return;
+    const confirm = await Swal.fire({
+      title: 'ยืนยันการลบรายการอาหารนี้?',
+      html: `คุณต้องการลบ <b>"${log.foodName}"</b> ใช่หรือไม่?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ef4444',
+      confirmButtonText: 'ใช่, ลบเลย',
+      cancelButtonText: 'ยกเลิก',
+    });
+    if (!confirm.isConfirmed) return;
+
+    try {
+      await adminApi.deleteFoodLog(token, log.id);
+      Swal.fire({
+        title: 'ลบสำเร็จ',
+        icon: 'success',
+        timer: 1500,
+        showConfirmButton: false,
+      });
+      onRefreshLogs?.();
+    } catch (err: any) {
+      Swal.fire('ผิดพลาด', err.message || 'ไม่สามารถลบรายการได้', 'error');
+    }
+  };
 
   return (
     <div className="fixed inset-0 bg-black/40 z-[100] flex items-center justify-center p-4 animate-fade-in select-none">
@@ -419,7 +460,17 @@ export const FoodLogsModal: React.FC<FoodLogsModalProps> = ({
 
               {/* 4. Logged Meals list */}
               <div className="bg-white p-5 rounded-lg border border-gray-100 shadow-sm space-y-4">
-                <h4 className="text-xs text-gray-800 font-bold uppercase tracking-wider">รายการอาหารที่บันทึก</h4>
+                <div className="flex justify-between items-center">
+                  <h4 className="text-xs text-gray-800 font-bold uppercase tracking-wider">รายการอาหารที่บันทึก</h4>
+                  {token && (
+                    <button
+                      onClick={() => setIsAddModalOpen(true)}
+                      className="text-xs font-bold text-pink-600 bg-pink-50 hover:bg-pink-100 py-1.5 px-3 rounded-lg transition cursor-pointer flex items-center gap-1"
+                    >
+                      + เพิ่มรายการอาหาร
+                    </button>
+                  )}
+                </div>
                 
                 <div className="space-y-3">
                   {filteredLogs.length === 0 ? (
@@ -431,8 +482,15 @@ export const FoodLogsModal: React.FC<FoodLogsModalProps> = ({
                     filteredLogs.map((log) => (
                       <div key={log.id} className="flex gap-4 p-4 rounded-lg bg-pink-50/20 border border-pink-100/10 items-center">
                         {log.imageUrl ? (
-                            <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 border border-pink-100/40">
+                            <div
+                              onClick={() => setLightboxLog(log)}
+                              className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 border border-pink-100/40 cursor-pointer hover:opacity-85 transition group relative"
+                              title="คลิกเพื่อดูรูปขนาดเต็ม"
+                            >
                               <img src={log.imageUrl} alt={log.foodName} className="w-full h-full object-cover" />
+                              <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs">
+                                🔍
+                              </div>
                             </div>
                           ) :
                             (
@@ -442,10 +500,35 @@ export const FoodLogsModal: React.FC<FoodLogsModalProps> = ({
                             )}
                         <div className="flex-1 flex flex-col justify-between py-0.5 min-w-0">
                           <div className="flex justify-between items-start gap-2">
-                            <h4 className="text-base text-gray-800 leading-tight truncate">{log.foodName}</h4>
-                            <span className="text-[9px] text-gray-400 bg-white px-2.5 py-0.5 rounded border border-gray-100 flex-shrink-0 shadow-sm">
-                              {new Date(log.loggedAt).toLocaleDateString('th-TH', { day: '2-digit', month: 'short' })} {new Date(log.loggedAt).toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })}
-                            </span>
+                            <h4
+                              onClick={() => log.imageUrl && setLightboxLog(log)}
+                              className={`text-base text-gray-800 leading-tight truncate ${log.imageUrl ? 'cursor-pointer hover:text-pink-600' : ''}`}
+                            >
+                              {log.foodName}
+                            </h4>
+                            <div className="flex items-center gap-1.5 flex-shrink-0">
+                              <span className="text-[9px] text-gray-400 bg-white px-2.5 py-0.5 rounded border border-gray-100 shadow-sm">
+                                {new Date(log.loggedAt).toLocaleDateString('th-TH', { day: '2-digit', month: 'short' })} {new Date(log.loggedAt).toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })}
+                              </span>
+                              {token && (
+                                <div className="flex items-center gap-1">
+                                  <button
+                                    onClick={() => setEditingLog(log)}
+                                    className="w-6 h-6 rounded bg-white border border-gray-200 text-gray-400 hover:text-blue-600 hover:border-blue-200 flex items-center justify-center text-[10px] transition cursor-pointer"
+                                    title="แก้ไขข้อมูล"
+                                  >
+                                    ✏️
+                                  </button>
+                                  <button
+                                    onClick={() => handleDeleteLog(log)}
+                                    className="w-6 h-6 rounded bg-white border border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-200 flex items-center justify-center text-[10px] transition cursor-pointer"
+                                    title="ลบรายการ"
+                                  >
+                                    🗑️
+                                  </button>
+                                </div>
+                              )}
+                            </div>
                           </div>
 
                           <div className="grid grid-cols-4 gap-2 text-center text-[10px] mt-2.5">
@@ -486,6 +569,35 @@ export const FoodLogsModal: React.FC<FoodLogsModalProps> = ({
           </button>
         </div>
       </div>
+
+      {/* Lightbox Modal */}
+      <ImageLightboxModal
+        log={lightboxLog}
+        onClose={() => setLightboxLog(null)}
+        onEdit={(log) => setEditingLog(log)}
+        onDelete={(log) => handleDeleteLog(log)}
+      />
+
+      {/* Add Modal */}
+      <FoodLogEditModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onSuccess={() => onRefreshLogs?.()}
+        token={token || ''}
+        users={allUsers}
+        defaultUserId={selectedUser.id}
+      />
+
+      {/* Edit Modal */}
+      <FoodLogEditModal
+        isOpen={!!editingLog}
+        initialLog={editingLog}
+        onClose={() => setEditingLog(null)}
+        onSuccess={() => onRefreshLogs?.()}
+        token={token || ''}
+        users={allUsers}
+        defaultUserId={selectedUser.id}
+      />
     </div>
   );
 };

@@ -6,6 +6,7 @@ import { Sidebar } from './components/Sidebar';
 import { DashboardTab } from './components/DashboardTab';
 import { UsersTab } from './components/UsersTab';
 import { FoodLogsModal } from './components/FoodLogsModal';
+import { FoodImagesTab } from './components/FoodImagesTab';
 import { adminApi } from './services/api';
 import { MealmeLogo } from './components/MealmeLogo';
 
@@ -16,7 +17,7 @@ function App() {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [accessDenied, setAccessDenied] = useState(false);
 
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'users'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'users' | 'images'>('dashboard');
   const [stats, setStats] = useState<UserCountStats | null>(null);
   const [users, setUsers] = useState<UserProfile[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -313,7 +314,7 @@ function App() {
       <main className="flex-1 p-5 pt-24 md:p-8 overflow-y-auto max-h-screen min-w-0">
         {activeTab === 'dashboard' ? (
           <DashboardTab stats={stats} onExportExcel={downloadExcel} />
-        ) : (
+        ) : activeTab === 'users' ? (
           <UsersTab
             users={users}
             searchTerm={searchTerm}
@@ -323,6 +324,8 @@ function App() {
             onAddToWhitelist={handleAddToWhitelist}
             onRemoveFromWhitelist={handleRemoveFromWhitelist}
           />
+        ) : (
+          <FoodImagesTab token={token || ''} users={users} />
         )}
       </main>
 
@@ -332,6 +335,9 @@ function App() {
         logs={selectedUserLogs}
         loading={loadingLogs}
         onClose={() => setSelectedUser(null)}
+        token={token}
+        onRefreshLogs={() => selectedUser && viewUserLogs(selectedUser)}
+        allUsers={users}
       />
     </div>
   );

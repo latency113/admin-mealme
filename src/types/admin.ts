@@ -29,6 +29,12 @@ export interface UserProfile {
 
 export interface FoodLog {
   id: string;
+  userId?: string;
+  user?: {
+    id: string;
+    lineUserId: string;
+    displayName: string | null;
+  };
   foodName: string;
   calories: number;
   protein: number;
@@ -37,4 +43,11 @@ export interface FoodLog {
   imageUrl: string | null;
   sourceType: string;
   loggedAt: string;
+}
+
+export interface FoodLogsResponse {
+  logs: FoodLog[];
+  total: number;
+  page: number;
+  limit?: number;
 }

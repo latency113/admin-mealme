@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { UserCountStats, UserProfile, FoodLog } from '../types/admin';
+import type { UserCountStats, UserProfile, FoodLog, FoodLogsResponse } from '../types/admin';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
@@ -56,6 +56,129 @@ export const adminApi = {
       return response.data;
     } catch (err: any) {
       throw new Error(err.response?.data?.error || 'ไม่สามารถดึงประวัติอาหารได้');
+    }
+  },
+
+  // ==========================================
+  // Food Logs & Submitted Images CRUD
+  // ==========================================
+  getFoodLogs: async (
+    token: string,
+    params?: {
+      userId?: string;
+      sourceType?: string;
+      hasImage?: boolean;
+      search?: string;
+      page?: number;
+      limit?: number;
+    }
+  ): Promise<FoodLogsResponse> => {
+    try {
+      const response = await api.get('/api/admin/food-logs', {
+        headers: { Authorization: `Bearer ${token}` },
+        params: {
+          ...params,
+          hasImage: params?.hasImage !== undefined ? String(params.hasImage) : undefined,
+        },
+      });
+      return response.data;
+    } catch (err: any) {
+      if (err.response?.status === 401) {
+        throw new Error('UNAUTHORIZED');
+      }
+      throw new Error(err.response?.data?.error || 'ไม่สามารถดึงรายการรูปภาพอาหารได้');
+    }
+  },
+
+  getFoodLogById: async (token: string, id: string): Promise<FoodLog> => {
+    try {
+      const response = await api.get(`/api/admin/food-logs/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return response.data;
+    } catch (err: any) {
+      throw new Error(err.response?.data?.error || 'ไม่พบข้อมูลรายการอาหาร');
+    }
+  },
+
+  createFoodLog: async (
+    token: string,
+    data: {
+      userId: string;
+      foodName: string;
+      calories: number;
+      protein: number;
+      fat: number;
+      carbs: number;
+      imageUrl?: string | null;
+      sourceType?: string;
+      loggedAt?: string;
+    }
+  ): Promise<FoodLog> => {
+    try {
+      const response = await api.post('/api/admin/food-logs', data, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return response.data.data;
+    } catch (err: any) {
+      throw new Error(err.response?.data?.error || 'ไม่สามารถเพิ่มรายการรูปภาพอาหารได้');
+    }
+  },
+
+  updateFoodLog: async (
+    token: string,
+    id: string,
+    data: Partial<{
+      userId: string;
+      foodName: string;
+      calories: number;
+      protein: number;
+      fat: number;
+      carbs: number;
+      imageUrl?: string | null;
+      loggedAt?: string;
+    }>
+  ): Promise<FoodLog> => {
+    try {
+      const response = await api.put(`/api/admin/food-logs/${id}`, data, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return response.data.data;
+    } catch (err: any) {
+      throw new Error(err.response?.data?.error || 'ไม่สามารถแก้ไขข้อมูลรูปภาพอาหารได้');
+    }
+  },
+
+  deleteFoodLog: async (token: string, id: string): Promise<{ success: boolean; message: string }> => {
+    try {
+      const response = await api.delete(`/api/admin/food-logs/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return response.data;
+    } catch (err: any) {
+      throw new Error(err.response?.data?.error || 'ไม่สามารถลบรายการอาหารได้');
+    }
+  },
+
+  analyzeImage: async (
+    token: string,
+    imageBase64: string
+  ): Promise<{
+    foodName: string;
+    calories: number;
+    protein: number;
+    fat: number;
+    carbs: number;
+  }> => {
+    try {
+      const response = await api.post(
+        '/api/admin/analyze-image',
+        { image: imageBase64 },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      return response.data.data;
+    } catch (err: any) {
+      throw new Error(err.response?.data?.error || 'การวิเคราะห์รูปภาพด้วย AI ล้มเหลว');
     }
   },
 
